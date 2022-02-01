@@ -1,19 +1,25 @@
 package calculator.model;
 
+import java.util.Objects;
+
 public class LogEvent {
 
     private String id;
     private String state; //Todo enum
-    private String applicationLog; //Todo enum ?
+    private String type; //Todo enum ?
     private String host;
-    private long timeStamp;
+    private long timestamp;
 
-    public LogEvent(String id, String state, String applicationLog, String host, long timeStamp){
+    public LogEvent(){
+
+    }
+
+    public LogEvent(String id, String state, String type, String host, long timestamp){
         this.id=id;
         this.state=state;
-        this.applicationLog =applicationLog;
+        this.type =type;
         this.host = host;
-        this.timeStamp = timeStamp;
+        this.timestamp = timestamp;
     }
 
     public void setId(String id){
@@ -32,12 +38,12 @@ public class LogEvent {
         return state;
     }
 
-    public void setApplicationLog(String applicationLog) {
-        this.applicationLog = applicationLog;
+    public void setType(String type) {
+        this.type = type;
     }
 
-    public String getApplicationLog() {
-        return applicationLog;
+    public String getType() {
+        return type;
     }
 
     public void setHost(String host) {
@@ -48,12 +54,39 @@ public class LogEvent {
         return host;
     }
 
-    public void setTimeStamp(long timeStamp) {
-        this.timeStamp = timeStamp;
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
     }
 
-    public long getTimeStamp() {
-        return timeStamp;
+    public long getTimestamp() {
+        return timestamp;
     }
-    
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        LogEvent logEvent = (LogEvent) o;
+        return timestamp == logEvent.timestamp &&
+                id.equals(logEvent.id) &&
+                state.equals(logEvent.state) &&
+                Objects.equals(type, logEvent.type) &&
+                Objects.equals(host, logEvent.host);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, state, type, host, timestamp);
+    }
+
+    @Override
+    public String toString() {
+        return "LogEvent{" +
+                "id='" + id + '\'' +
+                ", state='" + state + '\'' +
+                ", type='" + type + '\'' +
+                ", host='" + host + '\'' +
+                ", timestamp=" + timestamp +
+                '}';
+    }
 }
